@@ -50,4 +50,13 @@ function runMongo{
 	pop-location
 }
 
+function killMongo{
+	killAll "mongod"
+}
+
+function killAll{
+	param([string]$name)
+	get-process | ?{$_.ProcessName -eq $name} | %{kill $_.Id}
+}
+
 Pop-Location
