@@ -40,6 +40,10 @@ Enable-GitColors
 
 Pop-Location
 
+# Define variables
+$dropbox = 'C:\Users\Steve Mason\Documents\My Dropbox'
+$dev = 'e:\_Development'
+
 # Define aliases
 function gitStatus{
 	git status
@@ -47,14 +51,16 @@ function gitStatus{
 set-alias gs gitStatus
 
 function cdDev{
-	cd E:\_Development
+	cd $dev
 }
 set-alias dev cdDev
+
+function cdDropbox{
+	cd $dropbox
+}
+set-alias dropbox cdDropbox
 
 function openNotepad{
 	notepad $args
 }
 set-alias n openNotepad
-
-$dropbox = 'C:\Users\Steve Mason\Documents\My Dropbox'
-$dev = 'e:\_Development'
