@@ -4,7 +4,21 @@ Push-Location (Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
 . .\profile.example.ps1
 
 # Define variables
+if(!(Test-Path .\environment.ps1)){
+	Write-Error "Environment configfile cannot be found"
+	copy environment.example.ps1 environment.ps1
+	notepad .\environment.ps1
+}
+
 . .\environment.ps1
+
+if($dropbox -eq $null -or !(Test-Path $dropbox)){
+	Write-Error "Dropbox directory cannot be found or is not defined: $dropbox"
+}
+
+if($dev -eq $null -or !(Test-Path $dev)){
+	Write-Error "Dev directory cannot be found or is not defined: $dev"
+}
 
 # Define aliases
 function gitStatus{
@@ -26,5 +40,14 @@ function openNotepad{
 	notepad $args
 }
 set-alias n openNotepad
+
+function runMongo{
+	push-location
+	
+	cd $dropbox\apps\mongo\bin
+	start-process run_mongo.bat
+	
+	pop-location
+}
 
 Pop-Location
