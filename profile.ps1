@@ -21,27 +21,35 @@ if($dev -eq $null -or !(Test-Path $dev)){
 }
 
 # Define aliases
-function gitStatus{
+function Get-Git-Status{
 	git status
 }
-set-alias gs gitStatus
+set-alias gs Get-Git-Status
 
-function cdDev{
+function Set-Location-Dev{
+	Push-Location
 	cd $dev
 }
-set-alias dev cdDev
+set-alias dev Set-Location-Dev
 
-function cdDropbox{
+function Set-Location-Dropbox{
+	Push-Location
 	cd $dropbox
 }
-set-alias dropbox cdDropbox
+set-alias dropbox Set-Location-Dropbox
 
-function openNotepad{
+function Set-Location-Profile{
+	Push-Location
+	cd ~\Documents\WindowsPowerShell
+}
+set-alias profile Set-Location-Profile
+
+function Start-Notepad{
 	notepad $args
 }
-set-alias n openNotepad
+set-alias n Start-Notepad
 
-function runMongo{
+function Start-Mongo{
 	push-location
 	
 	cd $dropbox\apps\mongo\bin
@@ -50,11 +58,11 @@ function runMongo{
 	pop-location
 }
 
-function killMongo{
+function Kill-Mongo{
 	killAll "mongod"
 }
 
-function killAll{
+function Kill-All{
 	param([string]$name)
 	get-process | ?{$_.ProcessName -eq $name} | %{kill $_.Id}
 }
