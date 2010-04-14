@@ -36,6 +36,11 @@ function Run-Git-Add{
 }
 set-alias gad Run-Git-Add
 
+function Run-Git-Push{
+	git push $args
+}
+set-alias gph Run-Git-Push
+
 function Run-Git-Svn-DCommit{
 	git svn dcommit $args
 }
