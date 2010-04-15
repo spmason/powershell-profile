@@ -1,7 +1,10 @@
 Push-Location (Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
 
 # Run posh-git init script
+pushd
+cd posh-git
 . .\profile.example.ps1
+popd
 
 # Define variables
 if(!(Test-Path .\environment.ps1)){
