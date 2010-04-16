@@ -21,6 +21,16 @@ if($dev -eq $null -or !(Test-Path $dev)){
 }
 
 # Define aliases
+function elevate-process{
+	$file, [string]$arguments = $args;
+	$psi = new-object System.Diagnostics.ProcessStartInfo $file;
+	$psi.Arguments = $arguments;
+	$psi.Verb = "runas";
+	$psi.WorkingDirectory = get-location;
+	[System.Diagnostics.Process]::Start($psi);
+}
+set-alias sudo elevate-process;
+
 function Get-Git-Status{
 	git status
 }
@@ -70,9 +80,14 @@ function Set-Location-Profile{
 set-alias profile Set-Location-Profile
 
 function Start-Notepad{
-	notepad $args
+	sudo notepad $args
 }
 set-alias n Start-Notepad
+
+function Set-Hosts{
+	n $env:SystemRoot\system32\drivers\etc\hosts
+}
+set-alias hosts Set-Hosts
 
 function Start-Mongo{
 	push-location
