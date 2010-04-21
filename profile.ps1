@@ -82,7 +82,25 @@ function Kill-Mongo{
 
 function Kill-All{
 	param([string]$name)
-	get-process | ?{$_.ProcessName -eq $name} | %{kill $_.Id}
+	get-process | ?{$_.ProcessName -eq $name -or $_.Id -eq $name} | %{kill $_.Id}
+}
+
+function Suspend-All{
+	param([string]$name)
+	pushd
+	dropbox
+	cd apps\utils
+	get-process | ?{$_.ProcessName -eq $name -or $_.Id -eq $name} | %{.\pausep $_.Id}
+	popd
+}
+
+function Resume-All{
+	param([string]$name)
+	pushd
+	dropbox
+	cd apps\utils
+	get-process | ?{$_.ProcessName -eq $name -or $_.Id -eq $name} | %{.\pausep $_.Id /r}
+	popd
 }
 
 Pop-Location
