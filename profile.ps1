@@ -39,31 +39,6 @@ function Get-Git-Status{
 }
 set-alias gs Get-Git-Status
 
-function Run-Git-Commit{
-	git commit $args
-}
-set-alias gct Run-Git-Commit
-
-function Run-Git-Add{
-	git add $args
-}
-set-alias gad Run-Git-Add
-
-function Run-Git-Push{
-	git push $args
-}
-set-alias gph Run-Git-Push
-
-function Run-Git-Svn-DCommit{
-	git svn dcommit $args
-}
-set-alias gsd Run-Git-Svn-DCommit
-
-function Run-Git-Svn-Rebase{
-	git svn rebase $args
-}
-set-alias gsr Run-Git-Svn-Rebase
-
 function Set-Location-Dev{
 	Push-Location
 	cd $dev
@@ -83,12 +58,12 @@ function Set-Location-Profile{
 set-alias profile Set-Location-Profile
 
 function Start-Notepad{
-	sudo notepad $args
+	notepad $args
 }
 set-alias n Start-Notepad
 
 function Set-Hosts{
-	n $env:SystemRoot\system32\drivers\etc\hosts
+	sudo n $env:SystemRoot\system32\drivers\etc\hosts
 }
 set-alias hosts Set-Hosts
 
