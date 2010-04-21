@@ -30,7 +30,7 @@ function elevate-process{
 	$psi.Arguments = $arguments;
 	$psi.Verb = "runas";
 	$psi.WorkingDirectory = get-location;
-	[System.Diagnostics.Process]::Start($psi);
+	[System.Diagnostics.Process]::Start($psi) >> $null
 }
 set-alias sudo elevate-process;
 
@@ -90,7 +90,7 @@ function Suspend-All{
 	pushd
 	dropbox
 	cd apps\utils
-	get-process | ?{$_.ProcessName -eq $name -or $_.Id -eq $name} | %{.\pausep $_.Id}
+	get-process | ?{$_.ProcessName -eq $name -or $_.Id -eq $name} | %{.\pausep $_.Id >> $null}
 	popd
 }
 
@@ -99,7 +99,7 @@ function Resume-All{
 	pushd
 	dropbox
 	cd apps\utils
-	get-process | ?{$_.ProcessName -eq $name -or $_.Id -eq $name} | %{.\pausep $_.Id /r}
+	get-process | ?{$_.ProcessName -eq $name -or $_.Id -eq $name} | %{.\pausep $_.Id /r >> $null}
 	popd
 }
 
