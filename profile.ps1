@@ -63,7 +63,7 @@ function Start-Notepad{
 set-alias n Start-Notepad
 
 function Set-Hosts{
-	sudo n $env:SystemRoot\system32\drivers\etc\hosts
+	sudo notepad "$($env:SystemRoot)\system32\drivers\etc\hosts"
 }
 set-alias hosts Set-Hosts
 
