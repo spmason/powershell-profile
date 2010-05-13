@@ -1,0 +1,25 @@
+This is my personal powershell profile that I clone between various Windows machines I work on
+
+** Important: Copy "environment.example.ps1" to "example.ps1" and edit the paths inside before use **
+
+It imports posh-git and posh-svn to give auto-complete etc for working copies & clones of those repos
+
+It also asdded a few useful commands:
+- gs -> "git status"
+- n -> "notepad"
+- sudo -> launch process as Administrator (in new window)
+- hosts -> edit hosts file in notepad
+- dev -> jump to "Development" directory where you checkout your projects
+- dropbox -> jump to dropbox
+- start-mongo -> Run MongoDb instance (needs to be in your dropbox)
+
+Installation (Using git/powershell)
+============
+
+1. cd ~\Documents
+2. mkdir WindowsPowerShell
+3. git clone git://github.com/spmason/powershell-profile.git .
+4. cp environment.example.ps1 environment.ps1
+5. notepad environment.ps1
+
+Then save the file & restart the powershell console
