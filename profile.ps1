@@ -3,8 +3,19 @@ Push-Location (Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
 # Run posh-git init script
 pushd
 cd posh-git
-. .\profile.example.ps1
+# Load posh-git module from current directory
+Import-Module .\posh-git
+Enable-GitColors
 popd
+
+# Run posh-svn init script
+pushd
+cd posh-svn
+# Load posh-svn module from current directory
+Import-Module .\posh-svn
+popd
+
+. .\configurePrompt.ps1
 
 # Define variables
 if(!(Test-Path .\environment.ps1)){

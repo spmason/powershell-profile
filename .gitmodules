@@ -1,3 +1,6 @@
 [submodule "posh-git"]
 	path = posh-git
 	url = git://github.com/dahlbyk/posh-git.git
+[submodule "posh-svn"]
+	path = posh-svn
+	url = http://github.com/JeremySkinner/posh-svn.git
