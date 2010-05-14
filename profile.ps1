@@ -17,6 +17,13 @@ popd
 
 . .\configurePrompt.ps1
 
+$clrDir = [System.Runtime.InteropServices.RuntimeEnvironment]::GetRuntimeDirectory()
+$clrDir = split-path $clrDir
+$latestClrDir = ls $clrDir | ?{$_.PSIsContainer} | select -last 1
+$clrDir = join-path $clrDir $latestClrDir
+
+$env:path = "$($env:path);$clrDir"
+
 # Define variables
 if(!(Test-Path .\environment.ps1)){
 	Write-Error "Environment configfile cannot be found"
