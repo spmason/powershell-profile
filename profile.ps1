@@ -98,6 +98,30 @@ function Kill-Mongo{
 	killAll "mongod"
 }
 
+function Start-Cassini{
+	param([string]$location)
+	
+	if([System.String]::IsNullOrEmpty($location)){
+		$location = gl
+	}
+	
+	if($location.StartsWith(".\")){
+		$location = $location.TrimStart('.', '\', '/')
+	}
+	
+	if([System.IO.Path]::IsPathRooted($location) -eq $false){
+		$gl = gl
+		$location = [System.IO.Path]::Combine($gl, $location)
+	}
+	
+	push-location
+	
+	cd $dropbox\apps\CassiniDev
+	.\CassiniDev.exe /a:$location
+	
+	pop-location
+}
+
 function Kill-All{
 	param([string]$name)
 	get-process | ?{$_.ProcessName -eq $name -or $_.Id -eq $name} | %{kill $_.Id}
