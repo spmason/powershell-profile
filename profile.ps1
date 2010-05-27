@@ -23,6 +23,7 @@ $latestClrDir = ls $clrDir | ?{$_.PSIsContainer} | select -last 1
 $clrDir = join-path $clrDir $latestClrDir
 
 $env:path = "$($env:path);$clrDir"
+$env:EDITOR = "notepad"
 
 # Define variables
 if(!(Test-Path .\environment.ps1)){
