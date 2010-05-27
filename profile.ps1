@@ -80,6 +80,17 @@ function Start-Notepad{
 }
 set-alias n Start-Notepad
 
+function Start-VisualStudio2010{
+	$vsPath = Split-Path $env:VS100COMNTOOLS
+	$vsPath = Join-Path $vsPath IDE\devenv.exe
+	
+	ls *.sln | select -first 1 | %{
+		echo "Starting visual studio 2010 with $_"
+		. $vsPath $_
+	}
+}
+set-alias vs Start-VisualStudio2010
+
 function Set-Hosts{
 	sudo notepad "$($env:SystemRoot)\system32\drivers\etc\hosts"
 }
