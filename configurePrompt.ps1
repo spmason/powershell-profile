@@ -7,13 +7,15 @@ function prompt {
         
     # Git Prompt
     $Global:GitStatus = Get-GitStatus
+    $Global:GitPromptSettings.IndexForegroundColor = [ConsoleColor]::Magenta
     Write-GitStatus $GitStatus
         
     # Svn Prompt
     $Global:SvnStatus = Get-SvnStatus
     Write-SvnStatus $SvnStatus
       
-    return "> "
+    return '>
+$ '
 }
 
 if(-not (Test-Path Function:\DefaultTabExpansion)) {

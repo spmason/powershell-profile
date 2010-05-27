@@ -1,1 +1,6 @@
 environment.ps1
+log
+[Bb]in
+[Oo]bj
+*.user
+*.suo

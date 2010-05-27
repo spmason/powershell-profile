@@ -50,7 +50,7 @@ function elevate-process{
 	$psi.WorkingDirectory = get-location;
 	[System.Diagnostics.Process]::Start($psi) >> $null
 }
-set-alias sudo elevate-process;
+set-alias sudo elevate-process
 
 function Get-Git-Status{
 	git status

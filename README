@@ -17,8 +17,8 @@ Installation (Using git/powershell)
 ============
 
 1. cd ~\Documents
-2. mkdir WindowsPowerShell
-3. git clone git://github.com/spmason/powershell-profile.git .
+2. git clone git://github.com/spmason/powershell-profile.git WindowsPowerShell
+3. cd WindowsPowerShell
 4. git submodule init
 5. git submodule update
 6. cp environment.example.ps1 environment.ps1
