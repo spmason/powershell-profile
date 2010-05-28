@@ -81,16 +81,19 @@ function Start-Notepad{
 }
 set-alias n Start-Notepad
 
-function Start-VisualStudio2010{
-	$vsPath = Split-Path $env:VS100COMNTOOLS
-	$vsPath = Join-Path $vsPath IDE\devenv.exe
+function Start-VisualStudio{
+	param([string]$projFile = "")
 	
-	ls *.sln | select -first 1 | %{
-		echo "Starting visual studio 2010 with $_"
-		. $vsPath $_
+	if($projFile -eq ""){
+		ls *.sln | select -first 1 | %{
+			$projFile = $_
+		}
 	}
+	
+	echo "Starting visual studio with $projFile"
+	. $projFile
 }
-set-alias vs Start-VisualStudio2010
+set-alias vs Start-VisualStudio
 
 function Set-Hosts{
 	sudo notepad "$($env:SystemRoot)\system32\drivers\etc\hosts"
@@ -129,7 +132,7 @@ function Start-Cassini{
 	push-location
 	
 	cd $dropbox\apps\CassiniDev
-	.\CassiniDev.exe /a:$location
+	.\CassiniDev4.exe /a:$location
 	
 	pop-location
 }
