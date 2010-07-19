@@ -27,15 +27,15 @@ $env:EDITOR = "notepad"
 
 # Define variables
 if(!(Test-Path .\environment.ps1)){
-	Write-Error "Environment configfile cannot be found"
+	Write-Error "Environment configfile cannot be found - please edit & continue"
 	copy environment.example.ps1 environment.ps1
 	notepad .\environment.ps1
 }
 
 . .\environment.ps1
 
-if($dropbox -eq $null -or !(Test-Path $dropbox)){
-	Write-Error "Dropbox directory cannot be found or is not defined: $dropbox"
+if($dropbox -ne $null -and (Test-Path $dropbox)){
+	. .\dropbox.ps1
 }
 
 if($dev -eq $null -or !(Test-Path $dev)){
@@ -63,12 +63,6 @@ function Set-Location-Dev{
 	cd $dev
 }
 set-alias dev Set-Location-Dev
-
-function Set-Location-Dropbox{
-	Push-Location
-	cd $dropbox
-}
-set-alias dropbox Set-Location-Dropbox
 
 function Set-Location-Profile{
 	Push-Location
@@ -100,64 +94,9 @@ function Set-Hosts{
 }
 set-alias hosts Set-Hosts
 
-function Start-Mongo{
-	push-location
-	
-	cd $dropbox\apps\mongo\bin
-	start-process run_mongo.bat
-	
-	pop-location
-}
-
-function Kill-Mongo{
-	killAll "mongod"
-}
-
-function Start-Cassini{
-	param([string]$location)
-	
-	if([System.String]::IsNullOrEmpty($location)){
-		$location = gl
-	}
-	
-	if($location.StartsWith(".\")){
-		$location = $location.TrimStart('.', '\', '/')
-	}
-	
-	if([System.IO.Path]::IsPathRooted($location) -eq $false){
-		$gl = gl
-		$location = [System.IO.Path]::Combine($gl, $location)
-	}
-	
-	push-location
-	
-	cd $dropbox\apps\CassiniDev
-	.\CassiniDev4.exe /a:$location
-	
-	pop-location
-}
-
 function Kill-All{
 	param([string]$name)
 	get-process | ?{$_.ProcessName -eq $name -or $_.Id -eq $name} | %{kill $_.Id}
-}
-
-function Suspend-All{
-	param([string]$name)
-	pushd
-	dropbox
-	cd apps\utils
-	get-process | ?{$_.ProcessName -eq $name -or $_.Id -eq $name} | %{.\pausep $_.Id >> $null}
-	popd
-}
-
-function Resume-All{
-	param([string]$name)
-	pushd
-	dropbox
-	cd apps\utils
-	get-process | ?{$_.ProcessName -eq $name -or $_.Id -eq $name} | %{.\pausep $_.Id /r >> $null}
-	popd
 }
 
 Pop-Location
