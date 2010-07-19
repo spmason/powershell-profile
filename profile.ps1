@@ -34,10 +34,6 @@ if(!(Test-Path .\environment.ps1)){
 
 . .\environment.ps1
 
-if($dropbox -ne $null -and (Test-Path $dropbox)){
-	. .\dropbox.ps1
-}
-
 if($dev -eq $null -or !(Test-Path $dev)){
 	Write-Error "Dev directory cannot be found or is not defined: $dev"
 }

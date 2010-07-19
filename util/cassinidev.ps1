@@ -1,27 +1,3 @@
-function Start-Mongo{
-	push-location
-	
-	cd $dropbox\apps\mongo\bin
-	.\mongo.exe
-	
-	pop-location
-}
-set-alias mongo Start-Mongo
-
-function Start-Mongod{
-	push-location
-	
-	cd $dropbox\apps\mongo\bin
-	start-process run_mongo.bat
-	
-	pop-location
-}
-set-alias mongod Start-Mongod
-
-function Kill-Mongo{
-	killAll "mongod"
-}
-
 function Start-Cassini{
 	param([string]$location)
 	
@@ -40,7 +16,7 @@ function Start-Cassini{
 	
 	push-location
 	
-	cd $dropbox\apps\CassiniDev
+	cd $CassiniDev
 	.\CassiniDev4.exe /a:$location
 	
 	pop-location
