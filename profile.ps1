@@ -80,6 +80,17 @@ function Start-VisualStudio{
 		}
 	}
 	
+	if(($projFile -eq "") -and (Test-Path src)){
+		ls src\*.sln | select -first 1 | %{
+			$projFile = $_
+		}
+	}
+	
+	if($projFile -eq ""){
+		echo "No project file found"
+		return
+	}
+	
 	echo "Starting visual studio with $projFile"
 	. $projFile
 }
