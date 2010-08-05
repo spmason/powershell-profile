@@ -1,5 +1,20 @@
 Push-Location (Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
 
+function Test-InPath($fileName){
+	$found = $false
+	Find-InPath $fileName | %{$found = $true}
+	
+	return $found
+}
+
+function Find-InPath($fileName){
+	$env:PATH.Split(';') | %{
+		if(Test-Path $_){
+			ls $_ | ?{ $_.Name -like $fileName }
+		}
+	}
+}
+
 # Run posh-git init script
 pushd
 cd posh-git
@@ -7,6 +22,11 @@ cd posh-git
 Import-Module .\posh-git
 Enable-GitColors
 popd
+if(Test-InPath ssh-agent.*){
+	. .\ssh-agent-utils.ps1
+}else{
+	Write-Error "ssh-agent cannot be found in your PATH, please add it"
+}
 
 # Run posh-svn init script
 pushd
