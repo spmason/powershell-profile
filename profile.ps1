@@ -54,8 +54,14 @@ function Get-Git-Status{
 }
 set-alias gs Get-Git-Status
 
-function Set-Location-Dev{
+function Set-Location-Dev($folder){
 	Push-Location
+	
+	if($folder -ne ""){
+		cd "$dev\$folder"
+		return
+	}
+	
 	cd $dev
 }
 set-alias dev Set-Location-Dev
