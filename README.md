@@ -10,6 +10,7 @@ The profile imports posh-git and posh-svn to give auto-complete etc for working 
 The profile also ensures that ssh-agent is running so you avoid having to type in your password every time you push/pull (ssh should be in your PATH for this to work)
 
 I also add a few useful commands:
+
 * gs -> "git status"
 * n [path] -> "notepad"
 * sudo [name] -> launch process as Administrator (in new window)
@@ -18,7 +19,7 @@ I also add a few useful commands:
 * dropbox -> jump to dropbox
 * start-mongo -> Run MongoDb instance (need to configure this in environment.ps1)
 
-Installation (Using git/powershell)
+Installation (Using git & powershell)
 --------
 
 1. cd ~\Documents
