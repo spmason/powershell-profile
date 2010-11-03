@@ -4,3 +4,6 @@
 [submodule "posh-svn"]
 	path = posh-svn
 	url = http://github.com/JeremySkinner/posh-svn.git
+[submodule "posh-hg"]
+	path = posh-hg
+	url = http://github.com/JeremySkinner/posh-hg.git

@@ -1,7 +1,8 @@
 $global:SvnPromptSettings.BeforeText = ' [svn: '
 $global:GitPromptSettings.BeforeText = ' [git: '
+$global:HgPromptSettings.BeforeText = ' [hg: '
 
-# Set up a simple prompt, adding the git/svn prompt parts inside git/svn repos
+# Set up a simple prompt, adding the git/hg/svn prompt parts inside git/hg/svn repos
 function prompt {
 	Write-Host($pwd) -nonewline
 		
@@ -9,6 +10,10 @@ function prompt {
 	$Global:GitStatus = Get-GitStatus
 	$Global:GitPromptSettings.IndexForegroundColor = [ConsoleColor]::Magenta
 	Write-GitStatus $GitStatus
+		
+	# Mercurial Prompt
+	$Global:HgStatus = Get-HgStatus
+	Write-HgStatus $HgStatus
 		
 	# Svn Prompt
 	$Global:SvnStatus = Get-SvnStatus
@@ -39,6 +44,9 @@ function TabExpansion($line, $lastWord) {
 		'git (.*)' { GitTabExpansion $lastBlock }
 		# Execute git tab completion for all git-related commands
 		'svn (.*)' { SvnTabExpansion $lastBlock }
+		# mercurial and tortoisehg tab expansion
+		'(hg|hgtk) (.*)' { HgTabExpansion($lastBlock) }
+		# Development folder tab expansion
 		'dev (.*)' { DevTabExpansion $lastBlock }
 		# Fall back on existing tab expansion
 		default { DefaultTabExpansion $line $lastWord }

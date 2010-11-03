@@ -22,11 +22,13 @@ cd posh-git
 Import-Module .\posh-git
 Enable-GitColors
 popd
-if(Test-InPath ssh-agent.*){
-	. .\ssh-agent-utils.ps1
-}else{
-	Write-Error "ssh-agent cannot be found in your PATH, please add it"
-}
+
+# Run posh-hg init script
+pushd
+cd posh-hg
+# Load posh-svn module from current directory
+Import-Module .\posh-hg
+popd
 
 # Run posh-svn init script
 pushd
@@ -36,6 +38,13 @@ Import-Module .\posh-svn
 popd
 
 . .\configurePrompt.ps1
+
+# Configure ssh-agent so git doesn't require a password on every push
+if(Test-InPath ssh-agent.*){
+	. .\ssh-agent-utils.ps1
+}else{
+	Write-Error "ssh-agent cannot be found in your PATH, please add it"
+}
 
 $clrDir = [System.Runtime.InteropServices.RuntimeEnvironment]::GetRuntimeDirectory()
 $clrDir = split-path $clrDir
