@@ -12,17 +12,14 @@
 # Retrieve the current SSH agent PId (or zero). Can be used to determine if there
 # is an agent already starting.
 function Get-SshAgent() {
-    $agentPid = [Environment]::GetEnvironmentVariable("SSH_AGENT_PID",  "User")
-    if ([int]$agentPid -eq 0) {
-        $agentPid = [Environment]::GetEnvironmentVariable("SSH_AGENT_PID", "Process")
-    }
+    $agentPid = $env:SSH_AGENT_PID
     
     if ([int]$agentPid -eq 0) {
         0
     } else {
         # Make sure the process is actually running
         $process = Get-Process -Id $agentPid -ErrorAction SilentlyContinue
-		
+
         if(($process -eq $null) -or ($process.ProcessName -ne "ssh-agent")) {
             # It is not running (this is an error). Remove env vars and return 0 for no agent.
             [Environment]::SetEnvironmentVariable("SSH_AGENT_PID", $null, "Process")
@@ -83,7 +80,7 @@ function Stop-SshAgent() {
 function Add-SshKey() {
     if ($args.Count -eq 0) {
         # Add the default key (~/id_rsa)
-        ssh-add
+        ssh-add "$env:USERPROFILE\.ssh\id_rsa"
     } else {
         foreach ($value in $args) {
             ssh-add $value
