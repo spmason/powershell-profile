@@ -8,7 +8,7 @@ function Test-InPath($fileName){
 }
 
 function Find-InPath($fileName){
-	$env:PATH.Split(';') | %{
+	$env:PATH.Split(';') | ?{!([System.String]::IsNullOrEmpty($_))} | %{
 		if(Test-Path $_){
 			ls $_ | ?{ $_.Name -like $fileName }
 		}
