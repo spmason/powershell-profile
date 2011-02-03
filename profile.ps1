@@ -101,6 +101,12 @@ function Set-Location-Profile{
 }
 set-alias profile Set-Location-Profile
 
+function Start-Explorer{
+	if(!$args) { explorer . }
+	else { explorer $args }
+}
+Set-Alias e Start-Explorer
+
 function Start-Notepad{
 	notepad $args
 }
